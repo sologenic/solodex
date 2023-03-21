@@ -18,7 +18,7 @@ class SOLODEX extends EventEmitter {
 
   constructor(props: SOLODEXProps) {
     super();
-    if (props.sign_expiry) this._sign_expiry = this._sign_expiry;
+    if (props?.sign_expiry) this._sign_expiry = this._sign_expiry;
   }
 
   async signIn() {
