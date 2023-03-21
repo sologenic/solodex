@@ -17,7 +17,7 @@ const soloDEX = new SOLODEX({
   sign_expiry: 300_000, // This is optional, by default it's set to 100,000 ms (10 minutes)
 });
 
-const signingMeta = await soloDEX.newConnection();
+const signingMeta = await soloDEX.signIn();
 ```
 
 #### Properties of the returned object.
@@ -38,7 +38,7 @@ const options = {
   pushToken, // not required
 };
 
-const signingMeta = await soloDEX.sign(transaction, options);
+const signingMeta = await soloDEX.signTransaction(transaction, options);
 ```
 
 ## `setPushToken()`

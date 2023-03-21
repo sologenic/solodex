@@ -21,20 +21,20 @@ class SOLODEX extends EventEmitter {
     if (props.sign_expiry) this._sign_expiry = this._sign_expiry;
   }
 
-  async newConnection() {
+  async signIn() {
     const tx_json = {
       TransactionType: "NicknameSet",
       TransactionKind: "SignIn",
     };
 
-    return await this.sign(tx_json);
+    return await this.signTransaction(tx_json);
   }
 
   setPushToken(token: string) {
     this._push_token = token;
   }
 
-  async sign(tx: Transaction): Promise<SigningMeta> {
+  async signTransaction(tx: Transaction): Promise<SigningMeta> {
     try {
       const connection = await getConnectionRefs(tx, {
         expiry: this._sign_expiry,
