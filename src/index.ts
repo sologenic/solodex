@@ -74,6 +74,9 @@ class SOLODEX extends EventEmitter {
         };
       };
       connectionWS.addEventListener("open", () => {
+        console.log(
+          `Connection to WS for ${connection.meta.identifier} initialized`
+        );
         ping = setInterval(() => {
           connectionWS.send("ping");
         }, 5000);
