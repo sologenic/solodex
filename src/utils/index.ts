@@ -29,7 +29,11 @@ export const getConnectionRefs = async (
     }),
   });
 
-  console.log(axiosResponse);
+  if (axiosResponse.status !== 200)
+    throw {
+      thrower: "getConnectionRefs",
+      error: axiosResponse,
+    };
 
   axiosResponse.data.refs.deeplink = `https://solodex.page.link/?link=${axiosResponse.data.refs.deeplink}&apn=com.sologenicwallet&isi=1497396455&ibi=org.reactjs.native.example.SologenicWallet`;
 
