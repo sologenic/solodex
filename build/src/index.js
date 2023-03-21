@@ -21,7 +21,7 @@ class SOLODEX extends events_1.default {
         super();
         this._sign_expiry = 600000;
         if (props === null || props === void 0 ? void 0 : props.sign_expiry)
-            this._sign_expiry = this._sign_expiry;
+            this._sign_expiry = props.sign_expiry;
     }
     signIn() {
         return __awaiter(this, void 0, void 0, function* () {
