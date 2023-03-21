@@ -1,6 +1,6 @@
 {
   "name": "solodex",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "build/src/index.js",
   "module": "build/src/index.js",
@@ -10,14 +10,14 @@
     "build": "rm -rf ./build && npx tsc",
     "build:add": "npm run version && npm run build && git add build/"
   },
-  "pre-commit": [
-    "build:add"
-  ],
   "standard-version": {
     "skip": {
       "commit": true
     }
   },
+  "pre-commit": [
+    "build:add"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
