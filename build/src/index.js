@@ -23,20 +23,24 @@ class SOLODEX extends events_1.default {
         if (props.sign_expiry)
             this._sign_expiry = this._sign_expiry;
     }
-    newConnection() {
+    signIn() {
         return __awaiter(this, void 0, void 0, function* () {
             const tx_json = {
                 TransactionType: "NicknameSet",
                 TransactionKind: "SignIn",
             };
-            return yield this.sign(tx_json);
+            return yield this.signTransaction(tx_json);
         });
     }
-    sign(tx) {
+    setPushToken(token) {
+        this._push_token = token;
+    }
+    signTransaction(tx) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const connection = yield (0, index_1.getConnectionRefs)(tx, {
                     expiry: this._sign_expiry,
+                    pushToken: this._push_token,
                 });
                 this._monitorConnection(connection);
                 return {
@@ -70,6 +74,7 @@ class SOLODEX extends events_1.default {
                     };
                 };
                 connectionWS.addEventListener("open", () => {
+                    console.log(`Connection to WS for ${connection.meta.identifier} initialized`);
                     ping = setInterval(() => {
                         connectionWS.send("ping");
                     }, 5000);
@@ -86,10 +91,11 @@ class SOLODEX extends events_1.default {
                                         method: "get",
                                         url: `https://api.sologenic.org/api/v1/issuer/transactions/${msg.meta.identifier}`,
                                     });
+                                    this._push_token = msg.meta.push_token;
                                     this.emit(index_2.States.SIGNED, msg.meta.identifier, {
                                         signer: signedTX.data.signer,
-                                        push_token: msg.meta.push_token,
                                         tx: connection.tx_json,
+                                        push_token: msg.meta.push_token,
                                     });
                                 }
                                 else {
