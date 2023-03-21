@@ -2,6 +2,8 @@
 
 This SDK facilitates developers to integrate SOLO DEX as a signing mechanism on their platforms.
 
+You need to apply [here](https://typeform.com) to get whitelisted into our service.
+
 ## Usage
 
 This SDK works with events.
@@ -32,8 +34,19 @@ const signingMeta = await soloDEX.newConnection();
 ## Signing a Transaction
 
 ```js
-const signingMeta = await soloDEX.sign(transaction);
+const options = {
+  pushToken, // not required
+};
+
+const signingMeta = await soloDEX.sign(transaction, options);
 ```
+
+## `setPushToken()`
+
+This method set the `push token` on the initialized connection. The connection will handle the storage of the token once a `newConnection` is cretead, but it won't persist the storage.
+That's why the token is provided to you to store and set in the future, if needed. The only parameter this method takes is the token. Returns nothing.
+
+If you already have a token, set it right after initializing the instance and you won't need to run the `newConnection` method.
 
 ### Events
 
@@ -61,7 +74,14 @@ soloDEX.on("expired", (identifier) => {
 soloDEX.on("signed", (identifier, data) => {
   console.log(identifier); // 8b528257-eacd-4ab9-85c5-ed10d107f2db
 
-  const { signer, tx } = data;
+  const { signer, tx, push_token } = data;
   // Signer is the XRP Address of the user, TX the transaction signed
 });
 ```
+
+| Param      |        Type |                                                                                                                                        Description |
+| :--------- | ----------: | -------------------------------------------------------------------------------------------------------------------------------------------------: |
+| identifier |      string |                                                                                                               uuid of the transaction to be signed |
+| signer     |      string |                                                                                                                          XRP Address of the signer |
+| tx         | Transaction |                                                                                                                       The transaction to be signed |
+| push_token |      string | Token that needs to be passed to the `sign` method in order to send a push notification to the phone whenever a new transaction needs to be signed |

@@ -14,6 +14,7 @@ interface SOLODEXProps {
 
 class SOLODEX extends EventEmitter {
   private _sign_expiry: number = 600_000;
+  private _push_token: string | undefined;
 
   constructor(props: SOLODEXProps) {
     super();
@@ -29,10 +30,15 @@ class SOLODEX extends EventEmitter {
     return await this.sign(tx_json);
   }
 
+  setPushToken(token: string) {
+    this._push_token = token;
+  }
+
   async sign(tx: Transaction): Promise<SigningMeta> {
     try {
       const connection = await getConnectionRefs(tx, {
         expiry: this._sign_expiry,
+        pushToken: this._push_token,
       });
 
       this._monitorConnection(connection);
@@ -86,10 +92,12 @@ class SOLODEX extends EventEmitter {
                   url: `https://api.sologenic.org/api/v1/issuer/transactions/${msg.meta.identifier}`,
                 });
 
+                this._push_token = msg.meta.push_token;
+
                 this.emit(States.SIGNED, msg.meta.identifier, {
                   signer: signedTX.data.signer,
-                  push_token: msg.meta.push_token,
                   tx: connection.tx_json,
+                  push_token: msg.meta.push_token,
                 });
               } else {
                 this.emit(entry[0], msg.meta.identifier);
