@@ -28,7 +28,11 @@ const getConnectionRefs = (tx, options) => __awaiter(void 0, void 0, void 0, fun
             options: Object.assign({ expires_at: (0, dayjs_1.default)().add(options.expiry, "s").toISOString(), submit: false }, (options.pushToken ? { push_token: options.pushToken } : {})),
         }),
     });
-    console.log(axiosResponse);
+    if (axiosResponse.status !== 200)
+        throw {
+            thrower: "getConnectionRefs",
+            error: axiosResponse,
+        };
     axiosResponse.data.refs.deeplink = `https://solodex.page.link/?link=${axiosResponse.data.refs.deeplink}&apn=com.sologenicwallet&isi=1497396455&ibi=org.reactjs.native.example.SologenicWallet`;
     return axiosResponse.data;
 });
