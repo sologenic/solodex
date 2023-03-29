@@ -5,12 +5,10 @@ interface SOLODEXProps {
     sign_expiry?: number;
 }
 declare class SOLODEX extends EventEmitter {
-    private _sign_expiry;
-    private _push_token;
+    #private;
     constructor(props: SOLODEXProps);
-    signIn(): Promise<SigningMeta>;
     setPushToken(token: string): void;
+    signIn(): Promise<SigningMeta>;
     signTransaction(tx: Transaction): Promise<SigningMeta>;
-    private _monitorConnection;
 }
 export default SOLODEX;
