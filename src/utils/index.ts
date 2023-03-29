@@ -11,10 +11,10 @@ export const getConnectionRefs = async (
   tx: any,
   options: ConnectionOptions
 ): Promise<ConnectionResponse> => {
-  const url = "https://api.sologenic.org/api/v1/issuer/transactions";
+  const url = "https://api.sologenic.org/api/v1";
 
   const axiosResponse = await axios({
-    url,
+    url: url + "/issuer/transactions",
     method: "post",
     headers: {
       "Content-Type": "application/json",
