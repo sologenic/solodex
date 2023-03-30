@@ -4,12 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getConnectionRefs = void 0;
-const axios_1 = __importDefault(require("axios"));
+const axios_1 = require("axios");
 const dayjs_1 = __importDefault(require("dayjs"));
 const getConnectionRefs = async (tx, options) => {
     try {
         const url = "https://api.sologenic.org/api/v1";
-        const axiosResponse = await axios_1.default.post(url + "/issuer/transactions", {
+        const axiosResponse = await (0, axios_1.post)(url + "/issuer/transactions", {
             tx_json: tx,
             options: Object.assign({ expires_at: (0, dayjs_1.default)().add(options.expiry, "s").toISOString(), submit: false }, (options.pushToken ? { push_token: options.pushToken } : {})),
         }, {

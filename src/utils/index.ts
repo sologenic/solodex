@@ -1,4 +1,4 @@
-import axios from "axios";
+import { post } from "axios";
 import dayjs from "dayjs";
 import { ConnectionResponse } from "../types/index";
 
@@ -14,7 +14,7 @@ export const getConnectionRefs = async (
   try {
     const url = "https://api.sologenic.org/api/v1";
 
-    const axiosResponse = await axios.post(
+    const axiosResponse = await post(
       url + "/issuer/transactions",
       {
         tx_json: tx,
