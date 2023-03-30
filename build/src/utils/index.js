@@ -17,9 +17,7 @@ const axios_1 = __importDefault(require("axios"));
 const dayjs_1 = __importDefault(require("dayjs"));
 const getConnectionRefs = (tx, options) => __awaiter(void 0, void 0, void 0, function* () {
     const url = "https://api.sologenic.org/api/v1";
-    const axiosResponse = yield (0, axios_1.default)({
-        url: url + "/issuer/transactions",
-        method: "post",
+    const axiosResponse = yield axios_1.default.post(url + "/issuer/transactions", {
         headers: {
             "Content-Type": "application/json",
         },
