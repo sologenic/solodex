@@ -1,6 +1,6 @@
 {
   "name": "solodex",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "",
   "main": "build/src/index.js",
   "module": "build/src/index.js",
@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "version": "standard-version",
     "build": "rm -rf ./build && npx tsc",
-    "build:add": "npm run version && npm run build && git add build/"
+    "build:add": "npm run version && npm run build && git add -A"
   },
   "standard-version": {
     "skip": {
