@@ -1,4 +1,4 @@
-import { post } from "axios";
+import axios, { post } from "axios";
 import dayjs from "dayjs";
 import { ConnectionResponse } from "../types/index";
 
@@ -13,6 +13,8 @@ export const getConnectionRefs = async (
 ): Promise<ConnectionResponse> => {
   try {
     const url = "https://api.sologenic.org/api/v1";
+
+    console.log(post, axios);
 
     const axiosResponse = await post(
       url + "/issuer/transactions",
