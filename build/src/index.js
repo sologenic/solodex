@@ -1,4 +1,3 @@
-"use strict";
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
     if (kind === "m") throw new TypeError("Private method is not writable");
     if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
@@ -10,17 +9,15 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var _SOLODEX_instances, _SOLODEX_sign_expiry, _SOLODEX_push_token, _SOLODEX_monitorConnection;
-Object.defineProperty(exports, "__esModule", { value: true });
-const axios_1 = __importDefault(require("axios"));
-const events_1 = __importDefault(require("events"));
-const ws_1 = __importDefault(require("ws"));
-const index_1 = require("./utils/index");
-const index_2 = require("./types/index");
-class SOLODEX extends events_1.default {
+import axios from "axios";
+import EventEmitter from "events";
+import { getConnectionRefs } from "./utils/index";
+import { States, } from "./types/index";
+var ws = WebSocket;
+if (ws === undefined)
+    ws = require("ws");
+class SOLODEX extends EventEmitter {
     constructor(props) {
         super();
         _SOLODEX_instances.add(this);
@@ -49,7 +46,7 @@ class SOLODEX extends events_1.default {
     }
     async signTransaction(tx) {
         try {
-            const connection = await (0, index_1.getConnectionRefs)(tx, {
+            const connection = await getConnectionRefs(tx, {
                 expiry: __classPrivateFieldGet(this, _SOLODEX_sign_expiry, "f"),
                 pushToken: __classPrivateFieldGet(this, _SOLODEX_push_token, "f"),
             });
@@ -77,7 +74,7 @@ _SOLODEX_sign_expiry = new WeakMap(), _SOLODEX_push_token = new WeakMap(), _SOLO
     try {
         let ping;
         let eventsEmitted = [];
-        const connectionWS = new ws_1.default(connection.refs.ws);
+        const connectionWS = new WebSocket(connection.refs.ws);
         connectionWS.onerror = (error) => {
             throw {
                 thrower: "WS Monitor connection",
@@ -97,13 +94,13 @@ _SOLODEX_sign_expiry = new WeakMap(), _SOLODEX_push_token = new WeakMap(), _SOLO
             if (msg.meta.hasOwnProperty("identifier")) {
                 Object.entries(msg.meta).map(async (entry) => {
                     if (entry[1] === true && !eventsEmitted.includes(entry[0])) {
-                        if (entry[0] === index_2.States.SIGNED) {
-                            const signedTX = await (0, axios_1.default)({
+                        if (entry[0] === States.SIGNED) {
+                            const signedTX = await axios({
                                 method: "get",
                                 url: `https://api.sologenic.org/api/v1/issuer/transactions/${msg.meta.identifier}`,
                             });
                             __classPrivateFieldSet(this, _SOLODEX_push_token, msg.meta.push_token, "f");
-                            this.emit(index_2.States.SIGNED, msg.meta.identifier, {
+                            this.emit(States.SIGNED, msg.meta.identifier, {
                                 signer: signedTX.data.signer,
                                 tx: connection.tx_json,
                                 push_token: msg.meta.push_token,
@@ -113,7 +110,7 @@ _SOLODEX_sign_expiry = new WeakMap(), _SOLODEX_push_token = new WeakMap(), _SOLO
                             this.emit(entry[0], msg.meta.identifier);
                             eventsEmitted.push(entry[0]);
                         }
-                        if ([index_2.States.SIGNED, index_2.States.CANCELLED, index_2.States.EXPIRED].includes(entry[0])) {
+                        if ([States.SIGNED, States.CANCELLED, States.EXPIRED].includes(entry[0])) {
                             connectionWS.close();
                             clearInterval(ping);
                         }
@@ -129,4 +126,4 @@ _SOLODEX_sign_expiry = new WeakMap(), _SOLODEX_push_token = new WeakMap(), _SOLO
         };
     }
 };
-exports.default = SOLODEX;
+export default SOLODEX;

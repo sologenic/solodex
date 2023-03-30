@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.States = void 0;
-var States;
+export var States;
 (function (States) {
     States["OPENED"] = "opened";
     States["PUSHED"] = "pushed";
@@ -9,4 +6,4 @@ var States;
     States["SIGNED"] = "signed";
     States["CANCELLED"] = "cancelled";
     States["EXPIRED"] = "expiredYes";
-})(States = exports.States || (exports.States = {}));
+})(States || (States = {}));

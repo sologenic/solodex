@@ -1,6 +1,6 @@
 {
-  "name": "solodex",
-  "version": "1.0.10",
+  "name": "solodex-dev",
+  "version": "1.0.11",
   "description": "",
   "main": "build/src/index.js",
   "module": "build/src/index.js",
@@ -8,7 +8,8 @@
     "test": "ts-node test.ts",
     "version": "standard-version",
     "build": "rm -rf ./build && npx tsc",
-    "build:add": "npm run version && npm run build && git add -A"
+    "build:add": "npm run version && npm run build && git add -A",
+    "watch": "npx tsc --watch"
   },
   "standard-version": {
     "skip": {

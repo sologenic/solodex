@@ -1,6 +1,5 @@
 import axios from "axios";
 import EventEmitter from "events";
-import WebSocket from "ws";
 import { getConnectionRefs } from "./utils/index";
 import {
   ConnectionResponse,
@@ -8,6 +7,10 @@ import {
   Transaction,
   SigningMeta,
 } from "./types/index";
+
+var ws = WebSocket;
+
+if (ws === undefined) ws = require("ws");
 
 interface SOLODEXProps {
   sign_expiry?: number;
