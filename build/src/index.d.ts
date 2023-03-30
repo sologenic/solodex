@@ -6,7 +6,7 @@ interface SOLODEXProps {
 }
 declare class SOLODEX extends EventEmitter {
     #private;
-    constructor(props: SOLODEXProps);
+    constructor(props?: SOLODEXProps);
     setPushToken(token: string): void;
     signIn(): Promise<SigningMeta>;
     signTransaction(tx: Transaction): Promise<SigningMeta>;

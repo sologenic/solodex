@@ -1,5 +1,6 @@
 import axios from "axios";
 import EventEmitter from "events";
+import WebSocket from "ws";
 import { getConnectionRefs } from "./utils/index";
 import {
   ConnectionResponse,
@@ -16,7 +17,7 @@ class SOLODEX extends EventEmitter {
   #sign_expiry: number = 600_000;
   #push_token: string | undefined;
 
-  constructor(props: SOLODEXProps) {
+  constructor(props?: SOLODEXProps) {
     super();
     if (props?.sign_expiry) this.#sign_expiry = props.sign_expiry;
   }
@@ -26,12 +27,19 @@ class SOLODEX extends EventEmitter {
   }
 
   async signIn() {
-    const tx_json = {
-      TransactionType: "NicknameSet",
-      TransactionKind: "SignIn",
-    };
+    try {
+      const tx_json = {
+        TransactionType: "NicknameSet",
+        TransactionKind: "SignIn",
+      };
 
-    return await this.signTransaction(tx_json);
+      return await this.signTransaction(tx_json);
+    } catch (e) {
+      throw {
+        thrower: "signIn",
+        error: e,
+      };
+    }
   }
 
   async signTransaction(tx: Transaction): Promise<SigningMeta> {
@@ -53,6 +61,7 @@ class SOLODEX extends EventEmitter {
         tx,
       };
     } catch (e: any) {
+      console.log("EEEEE", e);
       throw {
         thrower: e.thrower || "sign",
         error: e,

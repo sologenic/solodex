@@ -11,29 +11,41 @@ export const getConnectionRefs = async (
   tx: any,
   options: ConnectionOptions
 ): Promise<ConnectionResponse> => {
-  const url = "https://api.sologenic.org/api/v1";
+  try {
+    const url = "https://api.sologenic.org/api/v1";
 
-  const axiosResponse = await axios.post(url + "/issuer/transactions", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: JSON.stringify({
-      tx_json: tx,
-      options: {
-        expires_at: dayjs().add(options.expiry, "s").toISOString(),
-        submit: false,
-        ...(options.pushToken ? { push_token: options.pushToken } : {}),
+    const axiosResponse = await axios.post(
+      url + "/issuer/transactions",
+      {
+        tx_json: tx,
+        options: {
+          expires_at: dayjs().add(options.expiry, "s").toISOString(),
+          submit: false,
+          ...(options.pushToken ? { push_token: options.pushToken } : {}),
+        },
       },
-    }),
-  });
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  if (axiosResponse.status !== 200)
+    if (axiosResponse.status !== 200)
+      throw {
+        thrower: "getConnectionRefs",
+        error: axiosResponse,
+      };
+
+    axiosResponse.data.refs.deeplink = `https://solodex.page.link/?link=${axiosResponse.data.refs.deeplink}&apn=com.sologenicwallet&isi=1497396455&ibi=org.reactjs.native.example.SologenicWallet`;
+
+    return axiosResponse.data;
+  } catch (e) {
+    console.log(e);
+
     throw {
       thrower: "getConnectionRefs",
-      error: axiosResponse,
+      error: e,
     };
-
-  axiosResponse.data.refs.deeplink = `https://solodex.page.link/?link=${axiosResponse.data.refs.deeplink}&apn=com.sologenicwallet&isi=1497396455&ibi=org.reactjs.native.example.SologenicWallet`;
-
-  return axiosResponse.data;
+  }
 };
