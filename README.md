@@ -14,7 +14,7 @@ This SDK works with events.
 import SOLODEX from "solodex";
 
 const soloDEX = new SOLODEX({
-  sign_expiry: 300_000, // This is optional, by default it's set to 100,000 ms (10 minutes)
+  sign_expiry: 300_000, // This is optional, by default it's set to 600,000 ms (10 minutes)
 });
 
 const signingMeta = await soloDEX.signIn();
@@ -43,8 +43,10 @@ const signingMeta = await soloDEX.signTransaction(transaction, options);
 
 ## `setPushToken()`
 
-This method set the `push token` on the initialized connection. The connection will handle the storage of the token once a `signIn` is cretead, but it won't persist the storage.
+This method set the `push token` on the initialized connection. The connection will handle the storage of the token once a `signIn` is created, but it won't persist the storage.
 That's why the token is provided to you to store and set in the future, if needed. The only parameter this method takes is the token. Returns nothing.
+
+The token is used to automatically send a Push notification to the user app regarding the transaction to be signed.
 
 If you already have a token, set it right after initializing the instance and you won't need to run the `signIn` method.
 
@@ -79,9 +81,11 @@ soloDEX.on("signed", (identifier, data) => {
 });
 ```
 
-| Param      |        Type |                                                                                                                                                   Description |
-| :--------- | ----------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| identifier |      string |                                                                                                                          uuid of the transaction to be signed |
-| signer     |      string |                                                                                                                                     XRP Address of the signer |
-| tx         | Transaction |                                                                                                                                  The transaction to be signed |
-| push_token |      string | Token that needs to be passed to the `signTransaction` method in order to send a push notification to the phone whenever a new transaction needs to be signed |
+_Response_
+
+| Param           |        Type |                                                                                                                                                   Description |
+| :-------------- | ----------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| identifier      |      string |                                                                                                                          uuid of the transaction to be signed |
+| data.signer     |      string |                                                                                                                                     XRP Address of the signer |
+| data.tx         | Transaction |                                                                                                                                  The transaction to be signed |
+| data.push_token |      string | Token that needs to be passed to the `signTransaction` method in order to send a push notification to the phone whenever a new transaction needs to be signed |
