@@ -32,7 +32,7 @@ class SOLODEX extends EventEmitter {
     async signIn() {
         try {
             const tx_json = {
-                TransactionType: "NicknameSet",
+                TransactionType: "NickNameSet",
                 TransactionKind: "SignIn",
             };
             return await this.signTransaction(tx_json);
