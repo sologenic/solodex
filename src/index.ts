@@ -14,19 +14,23 @@ if (ws === undefined) ws = require("ws");
 
 interface SOLODEXProps {
   sign_expiry?: number;
+  api_key: string;
 }
 
 class SOLODEX extends EventEmitter {
-  #sign_expiry: number = 600_000;
-  #push_token: string | undefined;
+  private _sign_expiry: number = 600_000;
+  private _push_token: string | undefined;
+  private _api_key: string;
 
-  constructor(props?: SOLODEXProps) {
+  constructor(props: SOLODEXProps) {
     super();
-    if (props?.sign_expiry) this.#sign_expiry = props.sign_expiry;
+
+    if (!props.api_key) throw new Error("FATAL: API Key is missing.");
+    if (props?.sign_expiry) this._sign_expiry = props.sign_expiry;
   }
 
   setPushToken(token: string) {
-    this.#push_token = token;
+    this._push_token = token;
   }
 
   async signIn() {
@@ -48,11 +52,12 @@ class SOLODEX extends EventEmitter {
   async signTransaction(tx: Transaction): Promise<SigningMeta> {
     try {
       const connection = await getConnectionRefs(tx, {
-        expiry: this.#sign_expiry,
-        pushToken: this.#push_token,
+        expiry: this._sign_expiry,
+        pushToken: this._push_token,
+        api_key: this._api_key,
       });
 
-      this.#monitorConnection(connection);
+      this._monitorConnection(connection);
 
       return {
         identifier: connection.meta.identifier,
@@ -72,7 +77,7 @@ class SOLODEX extends EventEmitter {
     }
   }
 
-  async #monitorConnection(connection: ConnectionResponse) {
+  private async _monitorConnection(connection: ConnectionResponse) {
     try {
       let ping: ReturnType<typeof setInterval>;
       let eventsEmitted: string[] = [];
@@ -107,7 +112,7 @@ class SOLODEX extends EventEmitter {
                   url: `https://api.sologenic.org/api/v1/issuer/transactions/${msg.meta.identifier}`,
                 });
 
-                this.#push_token = msg.meta.push_token;
+                this._push_token = msg.meta.push_token;
 
                 this.emit(States.SIGNED, msg.meta.identifier, {
                   signer: signedTX.data.signer,

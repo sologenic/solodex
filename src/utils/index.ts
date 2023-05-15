@@ -4,6 +4,7 @@ import axios from "axios";
 interface ConnectionOptions {
   pushToken?: string;
   expiry: number;
+  api_key: string;
 }
 
 export const getConnectionRefs = async (
@@ -26,6 +27,7 @@ export const getConnectionRefs = async (
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: options.api_key,
         },
       }
     );
