@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/sologenic/solodex/compare/v1.0.20...v1.1.0) (2023-05-15)
+
+
+### Features
+
+* api key ([c3032e2](https://github.com/sologenic/solodex/commit/c3032e2c7206f1c5f90864c5280b911526c3fda9))
+
 ### 1.0.20 (2023-05-15)
 
 ### [1.0.19](https://github.com/Sologenic/solodex/compare/v1.0.18...v1.0.19) (2023-04-05)

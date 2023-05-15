@@ -2,7 +2,9 @@
 
 This SDK facilitates developers to integrate SOLO DEX as a signing mechanism on their platforms.
 
-You need to apply [here](https://typeform.com) to get whitelisted into our service.
+You need to apply [here](https://typeform.com) to get your API Key.
+
+# IMPORTANT: DUE TO API KEY USAGE, USE ONLY ON THE SERVER-SIDE OF YOUR APPLICATION
 
 ## Usage
 
@@ -15,6 +17,7 @@ import SOLODEX from "solodex";
 
 const soloDEX = new SOLODEX({
   sign_expiry: 300_000, // This is optional, by default it's set to 600,000 ms (10 minutes)
+  api_key: $YOUR_API_KEY, // required
 });
 
 const signingMeta = await soloDEX.signIn();
