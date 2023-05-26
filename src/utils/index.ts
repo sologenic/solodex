@@ -12,7 +12,7 @@ export const getConnectionRefs = async (
   options: ConnectionOptions
 ): Promise<ConnectionResponse> => {
   try {
-    const url = "https://api.sologenic.org/api/v1";
+    const url = "https://api.test.sologenic.org/api/v1";
 
     const axiosResponse = await axios.post(
       url + "/issuer/transactions",

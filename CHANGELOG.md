@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/sologenic/solodex/compare/v1.2.0...v1.2.1) (2023-05-26)
+
+
+### Bug Fixes
+
+* module path on package.json ([7e5a16b](https://github.com/sologenic/solodex/commit/7e5a16b002c551b2a15156e1d140fe62ebac89db))
+
 ## [1.2.0](https://github.com/sologenic/solodex/compare/v1.1.1...v1.2.0) (2023-05-26)
 
 
