@@ -3,7 +3,7 @@ import EventEmitter from "events";
 import { Transaction, SigningMeta } from "./types/index";
 interface SOLODEXProps {
     sign_expiry?: number;
-    api_key: string;
+    api_key?: string;
 }
 declare class SOLODEX extends EventEmitter {
     private _sign_expiry;

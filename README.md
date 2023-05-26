@@ -2,9 +2,7 @@
 
 This SDK facilitates developers to integrate SOLO DEX as a signing mechanism on their platforms.
 
-You need to apply [here](https://typeform.com) to get your API Key.
-
-# IMPORTANT: DUE TO API KEY USAGE, USE ONLY ON THE SERVER-SIDE OF YOUR APPLICATION
+# IMPORTANT: THIS IS A SERVER-SIDE ONLY LIBRARY, ATTEMPTS TO USE ON THE CLIENT-SIDE (BROWSER) WILL FAIL DUE TO CORS.
 
 ## Usage
 
@@ -17,7 +15,7 @@ import SOLODEX from "solodex";
 
 const soloDEX = new SOLODEX({
   sign_expiry: 300_000, // This is optional, by default it's set to 600,000 ms (10 minutes)
-  api_key: $YOUR_API_KEY, // required
+  api_key: $YOUR_API_KEY, // This is optional, apply for an API Key here LINK TO API FORM
 });
 
 const signingMeta = await soloDEX.signIn();
@@ -46,7 +44,7 @@ const signingMeta = await soloDEX.signTransaction(transaction, options);
 
 ## `setPushToken()`
 
-This method set the `push token` on the initialized connection. The connection will handle the storage of the token once a `signIn` is created, but it won't persist the storage.
+This method sets the `push token` on the initialized connection. The connection will handle the storage of the token once a `signIn` is created, but it won't persist the storage.
 That's why the token is provided to you to store and set in the future, if needed. The only parameter this method takes is the token. Returns nothing.
 
 The token is used to automatically send a Push notification to the user app regarding the transaction to be signed.
@@ -54,6 +52,8 @@ The token is used to automatically send a Push notification to the user app rega
 If you already have a token, set it right after initializing the instance and you won't need to run the `signIn` method.
 
 ### Events
+
+The events return the identifier of the Transaction for the last action received from the SOLODEX app. With the exception of "signed" event, which returns data of the signed transaction
 
 ```js
 soloDEX.on("opened", (identifier) => {

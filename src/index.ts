@@ -14,19 +14,20 @@ if (ws === undefined) ws = require("ws");
 
 interface SOLODEXProps {
   sign_expiry?: number;
-  api_key: string;
+  api_key?: string;
 }
 
 class SOLODEX extends EventEmitter {
   private _sign_expiry: number = 600_000;
   private _push_token: string | undefined;
-  private _api_key: string;
+  private _api_key: string | undefined;
 
   constructor(props: SOLODEXProps) {
     super();
 
-    if (!props.api_key) throw new Error("FATAL: API Key is missing.");
     if (props?.sign_expiry) this._sign_expiry = props.sign_expiry;
+
+    if (props?.api_key) this._api_key = props.api_key;
   }
 
   setPushToken(token: string) {
@@ -53,7 +54,7 @@ class SOLODEX extends EventEmitter {
     try {
       const connection = await getConnectionRefs(tx, {
         expiry: this._sign_expiry,
-        pushToken: this._push_token,
+        pushToken: this._push_token, // On SignIn this is undefined
         api_key: this._api_key,
       });
 
@@ -65,11 +66,11 @@ class SOLODEX extends EventEmitter {
         refs: {
           deeplink: connection.refs.deeplink,
           qr: connection.refs.qr,
+          ws: connection.refs.ws,
         },
         tx,
       };
     } catch (e: any) {
-      console.log("EEEEE", e);
       throw {
         thrower: e.thrower || "sign",
         error: e,
