@@ -1,12 +1,7 @@
 import axios from "axios";
 import EventEmitter from "events";
-import { getConnectionRefs } from "./utils/index";
-import {
-  ConnectionResponse,
-  States,
-  Transaction,
-  SigningMeta,
-} from "./types/index";
+import { getConnectionRefs, url } from "./utils";
+import { ConnectionResponse, States, Transaction, SigningMeta } from "./types";
 
 var ws = WebSocket;
 
@@ -110,7 +105,7 @@ class SOLODEX extends EventEmitter {
               if (entry[0] === States.SIGNED) {
                 const signedTX = await axios({
                   method: "get",
-                  url: `https://api.sologenic.org/api/v1/issuer/transactions/${msg.meta.identifier}`,
+                  url: `${url}/issuer/transactions/${msg.meta.identifier}`,
                 });
 
                 this._push_token = msg.meta.push_token;

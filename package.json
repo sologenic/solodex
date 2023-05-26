@@ -1,6 +1,6 @@
 {
   "name": "solodex-wallet-sdk",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "",
   "main": "dist/main/index.js",
   "module": "dist/module/index.js",

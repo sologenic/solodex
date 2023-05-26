@@ -4,5 +4,6 @@ interface ConnectionOptions {
     expiry: number;
     api_key?: string;
 }
+export declare const url = "https://api.test.sologenic.org/api/v1";
 export declare const getConnectionRefs: (tx: any, options: ConnectionOptions) => Promise<ConnectionResponse>;
 export {};
