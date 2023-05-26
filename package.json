@@ -1,9 +1,9 @@
 {
   "name": "solodex-wallet-sdk",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "",
-  "main": "dist/main/src/index.js",
-  "module": "dist/module/src/index.js",
+  "main": "dist/main/index.js",
+  "module": "dist/module/index.js",
   "scripts": {
     "test": "ts-node test.ts",
     "watch": "npx tsc --watch",
