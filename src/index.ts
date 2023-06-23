@@ -114,6 +114,7 @@ class SOLODEX extends EventEmitter {
                   signer: signedTX.data.signer,
                   tx: connection.tx_json,
                   push_token: msg.meta.push_token,
+                  tx_blob: signedTX.data.tx_hex,
                 });
               } else {
                 this.emit(entry[0], msg.meta.identifier);
