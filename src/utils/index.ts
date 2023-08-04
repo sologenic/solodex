@@ -19,7 +19,7 @@ export const getConnectionRefs = async (
       {
         tx_json: tx,
         options: {
-          expires_at: dayjs().add(options.expiry, "s").toISOString(),
+          expires_at: dayjs().add(options.expiry, "ms").toISOString(),
           submit: false,
           ...(options.pushToken ? { push_token: options.pushToken } : {}),
           ...(options.api_key ? { api_key: options.api_key } : {}),
