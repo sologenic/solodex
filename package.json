@@ -1,6 +1,6 @@
 {
-  "name": "solodex-wallet-sdk",
-  "version": "1.2.6",
+  "name": "solodex",
+  "version": "1.2.7",
   "description": "",
   "main": "dist/main/index.js",
   "module": "dist/module/index.js",
@@ -9,10 +9,10 @@
     "watch": "npx tsc --watch",
     "build": "rm -rf ./dist && npm run build:main && npm run build:module",
     "version": "standard-version",
-    "publish:npm": "npm run version && npm run build && npm publish",
+    "publish:npm": "npm run build && npm publish",
     "build:main": "npx tsc -p tsconfig.json",
     "build:module": "npx tsc -p tsconfig.module.json",
-    "build:add": "npm run build && npm run version && git add -A"
+    "build:add": "npm run build && git add -A"
   },
   "standard-version": {
     "skip": {

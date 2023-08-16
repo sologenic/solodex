@@ -3,9 +3,7 @@ import EventEmitter from "events";
 import { getConnectionRefs, url } from "./utils";
 import { ConnectionResponse, States, Transaction, SigningMeta } from "./types";
 
-var ws = WebSocket;
-
-if (ws === undefined) ws = require("ws");
+const Websocket = WebSocket || require("ws");
 
 interface SOLODEXProps {
   sign_expiry?: number;
@@ -78,7 +76,7 @@ class SOLODEX extends EventEmitter {
       let ping: ReturnType<typeof setInterval>;
       let eventsEmitted: string[] = [];
 
-      const connectionWS = new WebSocket(connection.refs.ws as string);
+      const connectionWS = new Websocket(connection.refs.ws as string);
 
       connectionWS.onerror = (error: any) => {
         throw {
