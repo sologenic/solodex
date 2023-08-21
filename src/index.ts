@@ -3,7 +3,7 @@ import EventEmitter from "events";
 import { getConnectionRefs, url } from "./utils";
 import { ConnectionResponse, States, Transaction, SigningMeta } from "./types";
 
-const Websocket = WebSocket || require("ws");
+const Websocket = typeof window === "object" ? WebSocket : require("ws");
 
 interface SOLODEXProps {
   sign_expiry?: number;

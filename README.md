@@ -2,8 +2,6 @@
 
 This SDK facilitates developers to integrate SOLO DEX as a signing mechanism on their platforms.
 
-# IMPORTANT: THIS IS A SERVER-SIDE ONLY LIBRARY, ATTEMPTS TO USE ON THE CLIENT-SIDE (BROWSER) WILL FAIL DUE TO CORS.
-
 ## Usage
 
 This SDK works with events.

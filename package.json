@@ -1,28 +1,31 @@
 {
   "name": "solodex",
-  "version": "1.2.7",
-  "description": "",
+  "version": "1.2.8",
+  "description": "JS/TS Library to integrate soloDEX mobile app into dApps",
   "main": "dist/main/index.js",
   "module": "dist/module/index.js",
+  "homepage": "https://github.com/Sologenic/solodex",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sologenic/solodex.git"
+  },
   "scripts": {
     "test": "ts-node test.ts",
     "watch": "npx tsc --watch",
     "build": "rm -rf ./dist && npm run build:main && npm run build:module",
-    "version": "standard-version",
     "publish:npm": "npm run build && npm publish",
     "build:main": "npx tsc -p tsconfig.json",
     "build:module": "npx tsc -p tsconfig.module.json",
     "build:add": "npm run build && git add -A"
   },
-  "standard-version": {
-    "skip": {
-      "commit": true
-    }
-  },
-  "pre-commit": [
-    "build:add"
+  "keywords": [
+    "sologenic",
+    "solodex",
+    "sologenic dex",
+    "dex",
+    "reactnative",
+    "react native"
   ],
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
