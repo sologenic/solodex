@@ -32,6 +32,7 @@ class SOLODEX extends EventEmitter {
   }
 
   setPushToken(token: string) {
+    console.log("Le supposed token ", token);
     this._push_token = token;
   }
 
