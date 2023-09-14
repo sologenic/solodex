@@ -23,6 +23,14 @@ class SOLODEX extends EventEmitter {
     if (props?.api_key) this._api_key = props.api_key;
   }
 
+  set token(push_token: string) {
+    this._push_token = push_token;
+  }
+
+  get token() {
+    return this._push_token;
+  }
+
   setPushToken(token: string) {
     this._push_token = token;
   }
