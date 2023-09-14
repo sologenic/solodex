@@ -10,7 +10,6 @@ declare class SOLODEX extends EventEmitter {
     private _push_token;
     private _api_key;
     constructor(props: SOLODEXProps);
-    set token(push_token: string);
     get token(): string;
     setPushToken(token: string): void;
     signIn(): Promise<SigningMeta>;

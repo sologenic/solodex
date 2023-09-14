@@ -23,16 +23,11 @@ class SOLODEX extends EventEmitter {
     if (props?.api_key) this._api_key = props.api_key;
   }
 
-  set token(push_token: string) {
-    this._push_token = push_token;
-  }
-
   get token() {
     return this._push_token;
   }
 
   setPushToken(token: string) {
-    console.log("Le supposed token ", token);
     this._push_token = token;
   }
 
@@ -115,9 +110,7 @@ class SOLODEX extends EventEmitter {
                   url: `${url}/issuer/transactions/${msg.meta.identifier}`,
                 });
 
-                console.log("Message ", msg);
-                // this._push_token = msg.meta.push_token;
-                this.setPushToken(msg.meta.push_token);
+                this._push_token = msg.meta.push_token;
 
                 this.emit(States.SIGNED, msg.meta.identifier, {
                   signer: signedTX.data.signer,

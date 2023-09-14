@@ -17,6 +17,9 @@ const soloDEX = new SOLODEX({
 });
 
 const signingMeta = await soloDEX.signIn();
+
+// To retrieve the push token
+const token = soloDEX.token;
 ```
 
 #### Properties of the returned object.
@@ -32,12 +35,10 @@ const signingMeta = await soloDEX.signIn();
 
 ## Signing a Transaction
 
-```js
-const options = {
-  pushToken, // not required
-};
+This methods submits a transaction to be signed via SOLODEX App. The signingMeta object looks exactly the same as described on the `signIn` method.
 
-const signingMeta = await soloDEX.signTransaction(transaction, options);
+```js
+const signingMeta = await soloDEX.signTransaction(transaction);
 ```
 
 ## `setPushToken()`
