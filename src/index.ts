@@ -114,7 +114,9 @@ class SOLODEX extends EventEmitter {
                   url: `${url}/issuer/transactions/${msg.meta.identifier}`,
                 });
 
-                this._push_token = msg.meta.push_token;
+                console.log("Message ", msg);
+                // this._push_token = msg.meta.push_token;
+                this.setPushToken(msg.meta.push_token);
 
                 this.emit(States.SIGNED, msg.meta.identifier, {
                   signer: signedTX.data.signer,
