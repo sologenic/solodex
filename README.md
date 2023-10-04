@@ -2,6 +2,8 @@
 
 This SDK facilitates developers to integrate SOLO DEX as a signing mechanism on their platforms.
 
+[![NPM](https://nodei.co/npm/solodex.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/solodex/)
+
 ## Usage
 
 This SDK works with events.
@@ -13,7 +15,7 @@ import SOLODEX from "solodex";
 
 const soloDEX = new SOLODEX({
   sign_expiry: 300_000, // This is optional, by default it's set to 600,000 ms (10 minutes)
-  api_key: $YOUR_API_KEY, // This is optional, apply for an API Key here LINK TO API FORM
+  api_key: $YOUR_API_KEY, // This is optional, go to Developer Dashboard in sologenic.org to generate an API Key
 });
 
 const signingMeta = await soloDEX.signIn();

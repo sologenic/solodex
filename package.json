@@ -1,6 +1,6 @@
 {
   "name": "solodex",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "JS/TS Library to integrate soloDEX mobile app into dApps",
   "main": "dist/main/index.js",
   "module": "dist/module/index.js",
