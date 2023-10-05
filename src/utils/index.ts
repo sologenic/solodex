@@ -7,7 +7,7 @@ interface ConnectionOptions {
   api_key?: string;
 }
 
-export const url = "https://api.test.sologenic.org/api/v1";
+export const url = "https://api.sologenic.org/api/v1";
 
 export const getConnectionRefs = async (
   tx: any,
