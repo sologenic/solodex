@@ -5,6 +5,7 @@ interface ConnectionOptions {
   pushToken?: string;
   expiry: number;
   api_key?: string;
+  custom_endpoint?: string;
 }
 
 export const url = "https://api.sologenic.org/api/v1";
@@ -14,8 +15,10 @@ export const getConnectionRefs = async (
   options: ConnectionOptions
 ): Promise<ConnectionResponse> => {
   try {
+    const endpoint = options.custom_endpoint || url;
+
     const axiosResponse = await axios.post(
-      url + "/issuer/transactions",
+      endpoint + "/issuer/transactions",
       {
         tx_json: tx,
         options: {

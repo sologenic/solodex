@@ -16,6 +16,7 @@ import SOLODEX from "solodex";
 const soloDEX = new SOLODEX({
   sign_expiry: 300_000, // This is optional, by default it's set to 600,000 ms (10 minutes)
   api_key: $YOUR_API_KEY, // This is optional, go to Developer Dashboard in sologenic.org to generate an API Key
+  custom_tx_delivery_endpoint, // This is optional, it will allow you to provide your own Tx Delivery if desired
 });
 
 const signingMeta = await soloDEX.signIn();

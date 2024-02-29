@@ -8,12 +8,14 @@ const Websocket = typeof window === "object" ? WebSocket : require("ws");
 interface SOLODEXProps {
   sign_expiry?: number;
   api_key?: string;
+  custom_tx_delivery_endpoint?: string;
 }
 
 class SOLODEX extends EventEmitter {
   private _sign_expiry: number = 600_000;
-  private _push_token: string | undefined;
-  private _api_key: string | undefined;
+  private _push_token: string;
+  private _api_key: string;
+  private _custom_endpoint: string;
 
   constructor(props: SOLODEXProps) {
     super();
@@ -21,6 +23,9 @@ class SOLODEX extends EventEmitter {
     if (props?.sign_expiry) this._sign_expiry = props.sign_expiry;
 
     if (props?.api_key) this._api_key = props.api_key;
+
+    if (props?.custom_tx_delivery_endpoint)
+      this._custom_endpoint = props.custom_tx_delivery_endpoint;
   }
 
   get token() {
@@ -102,12 +107,14 @@ class SOLODEX extends EventEmitter {
         const msg = JSON.parse(message.data);
 
         if (msg.meta.hasOwnProperty("identifier")) {
+          const endpoint = this._custom_endpoint || url;
+
           Object.entries(msg.meta).map(async (entry) => {
             if (entry[1] === true && !eventsEmitted.includes(entry[0])) {
               if (entry[0] === States.SIGNED) {
                 const signedTX = await axios({
                   method: "get",
-                  url: `${url}/issuer/transactions/${msg.meta.identifier}`,
+                  url: `${endpoint}/issuer/transactions/${msg.meta.identifier}`,
                 });
 
                 this._push_token = msg.meta.push_token;
