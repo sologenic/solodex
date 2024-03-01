@@ -58,6 +58,7 @@ class SOLODEX extends EventEmitter {
         expiry: this._sign_expiry,
         pushToken: this._push_token, // On SignIn this is undefined
         api_key: this._api_key,
+        custom_endpoint: this._custom_endpoint,
       });
 
       this._monitorConnection(connection);
