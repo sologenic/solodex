@@ -1,6 +1,6 @@
 {
   "name": "solodex",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "description": "JS/TS Library to integrate soloDEX mobile app into dApps",
   "main": "dist/main/index.js",
   "module": "dist/module/index.js",
@@ -40,5 +40,8 @@
     "axios": "^1.3.4",
     "dayjs": "^1.11.7",
     "ws": "^8.13.0"
+  },
+  "peerDependencies": {
+    "xrpl": "^3.0.0"
   }
 }

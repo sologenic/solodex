@@ -1,3 +1,5 @@
+import { Transaction } from "xrpl";
+
 export interface ConnectionMeta {
   cancelled: boolean;
   expired: boolean;
@@ -23,15 +25,6 @@ export interface ConnectionRefs {
   deeplink: string;
   qr: string;
   ws?: string;
-}
-
-export interface Transaction {
-  Account?: string;
-  TransactionType: string;
-  TransactionKind?: string;
-  Memos?: { Memo: any }[];
-  Flags?: any;
-  [Field: string]: string | number | object | Array<any> | undefined | boolean;
 }
 
 export interface ConnectionResponse {

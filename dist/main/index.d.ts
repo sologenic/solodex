@@ -1,6 +1,7 @@
 /// <reference types="node" />
 import EventEmitter from "events";
-import { Transaction, SigningMeta } from "./types";
+import { SigningMeta } from "./types";
+import { Transaction } from "xrpl";
 interface SOLODEXProps {
     sign_expiry?: number;
     api_key?: string;

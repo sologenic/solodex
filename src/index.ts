@@ -1,7 +1,8 @@
 import axios from "axios";
 import EventEmitter from "events";
 import { getConnectionRefs, url } from "./utils";
-import { ConnectionResponse, States, Transaction, SigningMeta } from "./types";
+import { ConnectionResponse, States, SigningMeta } from "./types";
+import { Transaction } from "xrpl";
 
 const Websocket = typeof window === "object" ? WebSocket : require("ws");
 
@@ -43,7 +44,7 @@ class SOLODEX extends EventEmitter {
         TransactionKind: "SignIn",
       };
 
-      return await this.signTransaction(tx_json);
+      return await this.signTransaction(tx_json as any);
     } catch (e) {
       throw {
         thrower: "signIn",
