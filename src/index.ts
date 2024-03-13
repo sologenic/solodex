@@ -55,6 +55,7 @@ class SOLODEX extends EventEmitter {
 
   async signTransaction(tx: Transaction): Promise<SigningMeta> {
     try {
+      console.log("SOLODEX TOKEN => ", this._push_token);
       const connection = await getConnectionRefs(tx, {
         expiry: this._sign_expiry,
         pushToken: this._push_token, // On SignIn this is undefined
